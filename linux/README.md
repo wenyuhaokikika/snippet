@@ -4,7 +4,7 @@
  * @Author: wenyuhao
  * @Date: 2023-02-11 15:11:59
  * @LastEditors: wenyuhao
- * @LastEditTime: 2023-02-11 17:54:09
+ * @LastEditTime: 2023-02-11 17:56:21
 -->
 # linux
 
@@ -39,7 +39,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
         modified:   bioInfo/README.md
-``
+```
 恢复状态```git restore bioInfo/README.md```
 
 1,远程分支和本地分支不一致。
@@ -54,6 +54,7 @@ origin是远程分支的名称，main是本地分支的名称
 ```
 git push -u origin main
 ```
+
 如果本地分支和远程分支都变化了，则需要把远程分支和本地分支merge 远程分支没有变化了，则需要把本地分支push到远程
 ```
 #两种方法
