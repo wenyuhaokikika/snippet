@@ -27,3 +27,19 @@ def queryGene1(row):
     #records=[(deal(i[-1])['gene_name'],deal(i[-1])['gene_id']) for i in records if i[2]=='exon']
     return pd.DataFrame(list(records))#set(records)
 ```
+
+### 使用subprocess
+subprocess查询某个位置的基因：
+```
+from subprocess import Popen, PIPE
+def queryGene(row):
+    cHr,start,end=row[0].replace('chr',''),str(row[1]),str(row[2])
+    query = '{}:{}-{}'.format(cHr,start,end)
+    process = Popen(['tabix', '-f', '/data/wenyuhao/interactomeinsider/tabix/sorted.gtf.gz', query], stdout=PIPE)
+    res=pd.read_csv(process.stdout,sep='\t',header=None)
+    scc=res[res[2]=='exon'][8].apply(deal)
+    return {'gene':set(scc.apply(lambda x:x['gene_name']).to_list())
+            ,'ENSG':set(scc.apply(lambda x:x['gene_id']).to_list())}
+```
+
+查看某个基因名对应的ENSG编号```grep -n 'GLIS2' /data/wenyuhao/downloadTCGA/Homo_sapiens.GRCh38.94.gtf | awk '{print $10}' | uniq```
