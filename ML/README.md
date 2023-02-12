@@ -4,7 +4,7 @@
  * @Author: wenyuhao
  * @Date: 2023-02-11 17:59:22
  * @LastEditors: wenyuhao
- * @LastEditTime: 2023-02-11 17:59:23
+ * @LastEditTime: 2023-02-12 12:26:17
 -->
 # 传统的机器学习
 **主要是sklearn 相关的代码**
@@ -21,4 +21,10 @@ label = [0,0,1,0,1,0,0,1]
 pred = [0,0,0,0,0,1,1,1]
 from sklearn.metrics import confusion_matrix
 tn, fp, fn, tp = confusion_matrix(label, pred).ravel()
+```
+
+聚类处理离散型变量：
+```
+[distython](https://github.com/KacperKubara/distython)
+vmd3
 ```
