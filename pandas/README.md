@@ -20,6 +20,7 @@ comment: str, optional  忽略以"comment"为打头的行，比如comment ="#"�
 low_memory: bool, default True，一般读取大文件时应该设置这个参数为False。
 iterator: bool, default False，返回迭代器。
 chunksize: int,设置每个chunk的大小，iterator或者chunksize设置都会返回一个迭代器，一般读取大文件会用。
+mode：读写文件的模式，如'w+','a+'，如果设置为'a+'，则可以向同一个文件多次写入并叠加。
 ```
 pd.read_excel/
 
