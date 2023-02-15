@@ -18,4 +18,7 @@ find . -type f | grep '/pairs' |  xargs wc -l | awk -v FS="\t" '{print $0}' | so
 
 # 计算所有findSimilarPosPairLarge.py进程占的内存数，单位为KB，后面做一个补充，把/proc/pid/status的所有信息都做一个输出
 ps -aux | grep 'findSimilarPosPairLarge.py' | sed '1d' | awk '{print $2}' | xargs -I {} grep 'VmRSS' /proc/{}/status | awk '{sum+=$2;} END{print sum" kb";}'
+
+# 实时监控一个文件的行数并输出到log文件
+watch 'wc -l record_CVCL_0291_negWithPosSimilarPair_0.4_0.5| xargs -I {} echo "{}   $(date +%T)" >> log'
 ```
