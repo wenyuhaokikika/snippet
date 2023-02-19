@@ -1,4 +1,27 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: wenyuhao
+ * @Date: 2023-02-17 16:36:15
+ * @LastEditors: wenyuhao
+ * @LastEditTime: 2023-02-17 16:36:16
+-->
 # bioinformatics snippet
+
+## biopython
+写入写出fasta文件
+```python
+#读取文件
+h = [seq_record for seq_record in SeqIO.parse("/data/wenyuhao/55/uniprot/uniprot_sprot.fasta", "fasta")]
+#读取压缩文件
+import gzip
+h = [seq_record for seq_record in SeqIO.parse(gzip.open("/data/wenyuhao/55/uniprot/uniprot_sprot.fasta.gz", "rt"), "fasta")]
+#写入文件
+sequences = [SeqRecord(Seq(r['sequence']),id="sp|"+r['uniprotAC']+"-"+r['featureId'],
+           description=r['uniprotAC']+"-"+r['featureId']+" "+r['description'],**{k:r[k] for k in ['GN','DB','OS','OX']}) for i,r in pepi.iterrows()]
+with open("example.fasta", "w") as output_handle:
+    SeqIO.write(sequences, output_handle, "fasta")
+```
 
 ## Tabix
 ### 命令行

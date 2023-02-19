@@ -4,7 +4,7 @@
  * @Author: wenyuhao
  * @Date: 2023-02-12 12:30:12
  * @LastEditors: wenyuhao
- * @LastEditTime: 2023-02-12 22:17:00
+ * @LastEditTime: 2023-02-16 10:38:07
 -->
 # snippet
 - [bioInfo](./bioInfo/README.md)
