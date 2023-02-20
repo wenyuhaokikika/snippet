@@ -56,9 +56,8 @@ for d in pairs:
 使用python的迭代器输出
 pandas得到数据框的迭代器：
 ```
-def iterDf(df,par=5):
+def iterDf(df,par):
     step=int(df.shape[0]/par)+1
-    sss=[]
     for i in range(0,df.shape[0],step):
         yield df.iloc[i:i+step,:]
 ```
