@@ -28,5 +28,41 @@ height_ratios，width_ratios可以定义行的高度和列的宽度。
 
 
 ```
+
 - [ML](./ML.md)
 
+常用代码
+- 画4张图
+```python
+f, (ax1, ax2) = plt.subplots(2, 2,figsize = (25,6), sharey=False)
+g = sns.heatmap(df1, annot=False,cmap="crest",ax=ax1[0])
+plt.setp(ax1[0].get_xticklabels(), rotation=45, ha='right')
+ax1[0].title.set_text('shared_jaccard')
+#ax1[0].set_ylim(tmp['degree'].min(),tmp['degree'].max())
+ax1[0].set_xticks([])
+ax1[0].set_xlabel('')
+
+g = sns.heatmap(df2, annot=False,cmap="crest",ax=ax1[1])
+plt.setp(ax1[1].get_xticklabels(), rotation=45, ha='right')
+ax1[1].title.set_text('jaccard')
+#ax1[1].set_ylim(0,1)
+ax1[1].set_xticks([])
+ax1[1].set_yticks([])
+ax1[1].set_xlabel('')
+ax1[1].set_ylabel('')
+
+g = sns.heatmap(df3, annot=False,cmap="crest",ax=ax2[0])
+plt.setp(ax2[0].get_xticklabels(), rotation=45, ha='right')
+ax2[0].title.set_text('shared_edges')
+#ax2[0].set_ylim(0,1)
+
+g = sns.heatmap(df4, annot=False,cmap="crest",ax=ax2[1])
+plt.setp(ax2[1].get_xticklabels(), rotation=45, ha='right')
+ax2[1].title.set_text('shared_nodes')
+ax2[1].set_yticks([])
+ax2[1].set_ylabel('')
+#ax2[1].set_ylim(tmp['personalized_pagerank'].min(),tmp['personalized_pagerank'].max())
+
+f.suptitle('细胞系之间的全图网络比较', fontsize=25)
+plt.show()
+```
