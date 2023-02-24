@@ -56,9 +56,8 @@ for d in pairs:
 使用python的迭代器输出
 pandas得到数据框的迭代器：
 ```
-def iterDf(df,par=5):
+def iterDf(df,par):
     step=int(df.shape[0]/par)+1
-    sss=[]
     for i in range(0,df.shape[0],step):
         yield df.iloc[i:i+step,:]
 ```
@@ -71,6 +70,7 @@ pd.read_csv(f'/data/wenyuhao/55/data/GO/tmp/GOF/res{i}.csv',quotechar='"',
 读取压缩文件
 从xena下载数据
 ```python
+#compression参数也可以不加 pandas可以自己识别prefix并处理
 snv=pd.read_csv('https://gdc-hub.s3.us-east-1.amazonaws.com/download/TCGA-LUAD.mutect2_snv.tsv.gz',sep='\t',compression='gzip')
 ```
 
@@ -106,24 +106,21 @@ df.groupby(0).progress_apply(lambda x: x**2)
 ref:https://github.com/joblib/joblib
 ```
 from joblib import Parallel, delayed
-def proxyCount(df,ref):#ref = pathwayDf['catalysis-precedes']
-    return df.apply(ccountPath,axis=1,args=(ref,))
-result = Parallel(n_jobs=20,prefer='processes')(delayed(proxyCount)(i,\
-                         pathwayDf['controls-transport-of']) for i in iterDf(ppi,20))
-ppi['controls-transport-of']=pd.concat(result)
+result = Parallel(n_jobs=P,prefer='processes')(delayed(func)(*args) for args in iters)
+data['values']=pd.concat(result)
 ```
 
 ### 用pandarallel 处理并行
 ref:https://github.com/nalepae/pandarallel
+doc:https://nalepae.github.io/pandarallel/,doc中有其和pandas一一对应的方法
 ```
 from pandarallel import pandarallel
 pandarallel.initialize(nb_workers=23,progress_bar=True)
-ppi['OR']=ppi.parallel_apply(lambda x:calOR(x['gene1'],x['gene2']) if (x['gene1'] in tcgaGenes)\
-                             &(x['gene2'] in tcgaGenes) else 0,axis=1)
+df['new']=df.parallel_apply(lambda x:x,axis=1)
 ```
 
 ### 根据列名去重
-```cellLineExp=cellLineExp.loc[:,~cellLineExp.columns.duplicated()]```
+```df=df.loc[:,~df.columns.duplicated()]```
 
 
 
