@@ -40,4 +40,20 @@ with tqdm(neg.iterrows(), desc='Outter',position=0) as outter_range:
 ```
 
 # Anaconda
-克隆一份本地的环境```conda create --name myclone --clone root```
+1,新建环境
+```sh
+conda create --name myenv
+conda create -n myenv python=3.9
+conda create -n myenv scipy
+conda create -n myenv scipy=0.17.3
+conda create -n myenv python=3.9 scipy=0.17.3 astroid babel
+
+conda env create -f environment.yml
+conda env list
+
+conda create --prefix ./envs jupyterlab=3.2 matplotlib=3.5 numpy=1.21 #在本地创建conda的环境
+
+conda env update --prefix ./env --file environment.yml  --prune # update
+conda create --name myclone --clone myenv  #clone env 克隆一份本地的环境
+
+```
