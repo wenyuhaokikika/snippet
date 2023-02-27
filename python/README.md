@@ -38,3 +38,6 @@ with tqdm(neg.iterrows(), desc='Outter',position=0) as outter_range:
         for i1,r1 in tqdm(pos.iterrows(), desc='Inner',position=1,leave=leave):
             time.sleep(.3)
 ```
+
+# Anaconda
+克隆一份本地的环境```conda create --name myclone --clone root```
