@@ -6,6 +6,16 @@
  * @LastEditors: wenyuhao
  * @LastEditTime: 2023-02-15 08:41:38
 -->
+**import**
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(font_scale=2)
+import matplotlib as mpl
+mpl.rcParams['font.sans-serif'] = ['KaiTi']
+mpl.rcParams['font.serif'] = ['KaiTi']
+plt.rc('font', family='KaiTi', size=25)
+```
 
 # seaborn
 ## 全局设置
