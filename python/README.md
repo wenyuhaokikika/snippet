@@ -39,6 +39,17 @@ with tqdm(neg.iterrows(), desc='Outter',position=0) as outter_range:
             time.sleep(.3)
 ```
 
+## biopython
+写入写出
+```python
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
+[(seq_record.id,seq_record) for seq_record in SeqIO.parse("test.fasta", "fasta")]
+SeqIO.write([SeqRecord(Seq(r['sequence']),id=r['UniqueIdentifier'],description=r['ProteinName'],name=r['EntryName']) for i,r in oncoP.iterrows()]
+            , "/data/wenyuhao/55/data/PPI/IR/oncoppi/proteins.fa", "fasta")
+```
+
 # Anaconda
 1,新建环境
 ```sh
