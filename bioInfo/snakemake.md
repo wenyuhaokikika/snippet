@@ -4,7 +4,7 @@
  * @Author: wenyuhao
  * @Date: 2023-02-27 00:14:45
  * @LastEditors: wenyuhao
- * @LastEditTime: 2023-02-27 00:17:50
+ * @LastEditTime: 2023-02-27 00:57:08
 -->
 snakemake --cores all
 
