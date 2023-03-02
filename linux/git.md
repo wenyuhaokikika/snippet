@@ -29,6 +29,8 @@ git config --global url."https://hub.fastgit.xyz/".insteadOf https://github.com/
 #https://stackoverflow.com/questions/4298960/git-add-and-commit-in-one-command
 git config --global alias.add-commit '!git add -A && git commit'
 git add-commit -m '' --allow-empty-message
+#或者
+git commit -am "message"
 
 ```
 
