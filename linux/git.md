@@ -24,6 +24,12 @@ git push -u origin main
 git config --global user.email "925201392@qq.com" #添加邮箱
 git config --global user.name "wenyuhao"
 git config --global url."https://hub.fastgit.xyz/".insteadOf https://github.com/  #由于国内限制
+
+#git add 和commit写在一行中
+#https://stackoverflow.com/questions/4298960/git-add-and-commit-in-one-command
+git config --global alias.add-commit '!git add -A && git commit'
+git add-commit -m '' --allow-empty-message
+
 ```
 
 ## 碰到的问题解决
