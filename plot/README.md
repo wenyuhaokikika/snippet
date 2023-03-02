@@ -6,6 +6,21 @@
  * @LastEditors: wenyuhao
  * @LastEditTime: 2023-02-15 08:41:38
 -->
+**import**
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(font_scale=2)
+import matplotlib as mpl
+mpl.rcParams['font.sans-serif'] = ['KaiTi']
+mpl.rcParams['font.serif'] = ['KaiTi']
+plt.rc('font', family='KaiTi', size=25)
+```
+
+reference
+```
+https://stackoverflow.com/questions/43214978/how-to-display-custom-values-on-a-bar-plot
+```
 
 # seaborn
 ## 全局设置

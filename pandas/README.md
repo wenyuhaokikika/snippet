@@ -123,4 +123,27 @@ df['new']=df.parallel_apply(lambda x:x,axis=1)
 ```df=df.loc[:,~df.columns.duplicated()]```
 
 
+# numpy
+1,设置随机种子
+```python
+#两种方法，一般用第一种，第二种每次random又要重新设置种子，非常麻烦。
+#1为种子，种子不一样，生成的随机数也不一样，但是对每个种子来说，每次运行所生成的随机数是相同的
+import numpy as np
+rs = np.random.RandomState(1)  
+data = rs.rand(30)
+print(data)
 
+import numpy as np
+np.random.seed(1) #设置随机种子为1
+print(np.random.rand(30))
+```
+2,随机数
+```python
+random.randint(low, high=None, size=None, dtype=int) #整数
+
+```
+
+3,形状变化
+```python
+x,views(-1)#平摊为1d数组
+```
