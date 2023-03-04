@@ -13,7 +13,9 @@
 ## 上线部署
 - gradio
   github:https://github.com/gradio-app/gradio
+  
   doc:https://gradio.app/
+  
   嵌入到普通网页的div中,ref:https://discuss.huggingface.co/t/gradio-iframe-embedding/13021/2
   ```html
   <html>
