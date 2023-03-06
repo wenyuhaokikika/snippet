@@ -107,6 +107,34 @@ Crontab 表达式规则：
 0 12 1-7 * * #每个月的第一个星期天
 @reboot #每次重启之后
 ```
+## centos开启防火墙
+```sh
+firewall-cmd --list-ports#查看所有打开的端口
+firewall-cmd --add-port=23333/tcp#开启端口
+firewall-cmd --permanent --add-port=23333/tcp#永久开启端口
+firewall-cmd --reload#重新reload规则
+firewall-cmd    --state#查看防火墙的规则
+#停止运行
+systemctl stop firewalld
+systemctl mask firewalld
+#如果打开之后服务依然不能访问，大概率是缓存问题，清除缓存。
+```
+
+## 进程的持续和挂起】
+[reptyr](https://github.com/nelhage/reptyr)有解释到进程的一些用法
+```sh
+* Start a long running process, e.g. `top`
+* Background the process with CTRL-Z
+* Resume the process in the background: `bg`
+* Display your running background jobs with `jobs -l`, this should look like this:
+  * `[1]+  4711 Stopped (signal)        top`
+  * (The `-l` in `jobs -l` makes sure you'll get the PID)
+* Disown the jobs from the current parent with `disown top`. After that, `jobs` will not show the job any more, but `ps -a` will.
+* Start your terminal multiplexer of choice, e.g. `tmux`
+* Reattach to the backgrounded process: `reptyr 4711`
+* Detach your terminal multiplexer (e.g. CTRL-A D) and close ssh
+* Reconnect ssh, attach to your multiplexer (e.g. `tmux attach`), rejoice!
+```
 
 ## 处理文件的一些脚本
 ```sh
