@@ -81,15 +81,13 @@ export https_proxy="socks5://10.20.213.56:10808"
 注：成功与否用```curl https://www.google.com/```,不要使用ping和wget，ping走的是icmp协议，wget不支持sock协议的代理。
 
 ## 进程守护
-- nohup:一般nohup直接挂上去nohup command &
-  ```nohup command > /dev/null &```不输出，```nohup command > output 2>&1 & ```输出到output文件
+- nohup:一般nohup直接挂上去1,```nohup command &```,2,```nohup command > /dev/null &```不输出，3,```nohup command > output 2>&1 & ```输出到output文件.
 - supervisor
 - screen
 
 ## 定时任务
 crontab可以设定定时任务，su到某个用户下使用```crontab -e```,打开一个类似vim的编辑器，就可以设定定时任务了。
 Crontab 表达式规则：
-注：Linux中没有second，最小是miniute。
 ```
 *    *    *    *    *
 -    -    -    -    -
@@ -100,6 +98,10 @@ Crontab 表达式规则：
 |    +-------------------- 小时 (0 - 23)
 +------------------------- 分钟 (0 - 59)
 ```
+注：
+ - Linux中没有second，最小是miniute。
+ - crontab不支持两个命令写在一行中的，比如```cd && ls```在shell中可以运行在crontab中不可以，最好的方法是写到一个run.sh脚本中，运行这个脚本.
+
 例子：
 ```
 30 21 * * * #表示每晚21:30分执
