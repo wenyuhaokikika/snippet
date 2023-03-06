@@ -51,3 +51,7 @@ sort a.txt b.txt | uniq #并 将a.txt b.txt文件进行排序，uniq使得两个
 sort a.txt b.txt b.txt | uniq -u #差 将两个文件排序，最后输出a.txt b.txt b.txt文件中只出现过一次的内容，因为有两个b.txt所以只会输出只在a.txt出现过一次的内容，即是a.txt-b.txt差集
 
 ```
+
+## 挂载文件
+windows 挂载nfs文件系统```mount xx.xx.xx.xx:/path  B:```,这个命令只能在cmd中运行，powershell和cygwin中用不了，希望后面可以用。
+
