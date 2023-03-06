@@ -85,6 +85,10 @@ export https_proxy="socks5://10.20.213.56:10808"
 - supervisor
 - screen
 
+## 使用nfs在内网中搭建共享文件夹
+
+## 使用frp搭建内网穿透
+
 ## 定时任务
 crontab可以设定定时任务，su到某个用户下使用```crontab -e```,打开一个类似vim的编辑器，就可以设定定时任务了。
 Crontab 表达式规则：
