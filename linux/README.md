@@ -137,6 +137,9 @@ systemctl mask firewalld
 * Detach your terminal multiplexer (e.g. CTRL-A D) and close ssh
 * Reconnect ssh, attach to your multiplexer (e.g. `tmux attach`), rejoice!
 ```
+例如，我有一个rsync进程在传输文件，我想关电脑走人了，但是我不想kill再一次传输，所以我想找个screen把它挂起来。
+首先ctrl+z将任务，他会返回一个pid，是rsync的pid，使用```screen -S rsync```新建一个screen，再用reptyr 20296将session接过来。
+
 
 ## 处理文件的一些脚本
 ```sh
