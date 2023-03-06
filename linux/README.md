@@ -6,10 +6,13 @@
  * @LastEditors: wenyuhao
  * @LastEditTime: 2023-02-17 15:30:55
 -->
+
+
 # linux
 
 - [git](./git.md)
 - [并行](./并行.md)
+
 
 ## 自定义一些命令行函数
 ```sh
@@ -42,8 +45,39 @@ sdms(){curl https://sctapi.ftqq.com/SCT177539TQu99ZcZ74QSVReEXeJHEDxry.send\?tit
 rsync -avuP root@192.168.1.100:/opt/a.tar.gz ./a.tar.gz
 ```
 
+## 挂载文件
+windows 挂载nfs文件系统```mount xx.xx.xx.xx:/path  B:```,这个命令只能在cmd中运行，powershell和cygwin中用不了，希望后面可以用。
 
-例子
+linux挂载smb```sudo mount -t cifs //xx.xxx.xxx.xx/path /mnt/cifs52disk -o username=jon,password=password,acl,dir_mode=0777,file_mode=077```
+
+linux挂载nfs```mount -t nfs xx.xx.xx.xx:/path /path```
+
+开机自动挂载，打开```/etc/fstab```，添加下面几行。
+```sh
+xx.xx.xxx.xx:/path     path                   nfs     defaults        0 0   #挂载nfs
+//xxx.xxx.xx.xx/path     /mnt/cifs52disk                    cifs     defaults,username=xxxx,password="xxxxxx"        0 0 #挂载smb
+```
+
+## 翻墙
+linux有v2ray，但是不能切换线路，之前试过[clash-dashboard](https://github.com/Dreamacro/clash-dashboard)和[clash-for-linux](https://github.com/wanhebin/clash-for-linux)但是都会有不同的bug，不好使，我想只要局域网中有一个代理，其他的走他的代理就行，局域网中的windows电脑就是个代理。
+在windows客户端，点击参数设置-->v2ray设置-->允许来自局域网的连接
+![image.png](https://upload-images.jianshu.io/upload_images/13330053-a7b8e5a2d7cb2f98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+再查看内网中的windows的IP地址，用ipconfig查看
+在linux客户端输入
+```sh
+export http_proxy="socks5://10.20.213.56:10808"
+export https_proxy="socks5://10.20.213.56:10808"
+```
+如果不想走代理，```unset http_proxy;unset https_proxy```.
+
+注：成功与否用```curl https://www.google.com/```,不要使用ping和wget，ping走的是icmp协议，wget不支持sock协议的代理。
+
+## 进程守护
+- nohup:一般nohup直接挂上去nohup command &
+
+## 处理文件的一些脚本
 ```sh
 # 找到文件夹下面的所有带/pairs的文件名，并根据行数降序排序
 find . -type f | grep '/pairs' |  xargs wc -l | awk -v FS="\t" '{print $0}' | sort -n -r -k 1
@@ -61,31 +95,4 @@ sort a.txt b.txt b.txt | uniq -u #差 将两个文件排序，最后输出a.txt 
 
 ```
 
-## 挂载文件
-windows 挂载nfs文件系统```mount xx.xx.xx.xx:/path  B:```,这个命令只能在cmd中运行，powershell和cygwin中用不了，希望后面可以用。
 
-linux挂载smb```sudo mount -t cifs //xx.xxx.xxx.xx/path /mnt/cifs52disk -o username=jon,password=password,acl,dir_mode=0777,file_mode=077```
-
-linux挂载nfs```mount -t nfs xx.xx.xx.xx:/path /path```
-
-开机自动挂载
-```sh
-xx.xx.xxx.xx:/path     path                   nfs     defaults        0 0   #挂载nfs
-//xxx.xxx.xx.xx/path     /mnt/cifs52disk                    cifs     defaults,username=xxxx,password="xxxxxx"        0 0 #挂载smb
-```
-
-## 内网翻墙
-在windows客户端，点击参数设置-->v2ray设置-->允许来自局域网的连接
-![image.png](https://upload-images.jianshu.io/upload_images/13330053-a7b8e5a2d7cb2f98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-再查看内网中的windows的IP地址，用ipconfig查看
-在linux客户端输入
-```sh
-export http_proxy="socks5://10.20.213.56:10808"
-export https_proxy="socks5://10.20.213.56:10808"
-```
-如果不想走代理，```unset http_proxy;unset https_proxy```.
-
-
-注：成功与否用```curl https://www.google.com/```,不要使用ping和wget，ping走的是icmp协议，wget不支持sock协议的代理。
