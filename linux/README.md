@@ -141,7 +141,13 @@ systemctl mask firewalld
 * Detach your terminal multiplexer (e.g. CTRL-A D) and close ssh
 * Reconnect ssh, attach to your multiplexer (e.g. `tmux attach`), rejoice!
 ```
-例如，我有一个rsync进程在传输文件，我想关电脑走人了，但是我不想kill再一次传输，所以我想找个screen把它挂起来。
+centos上安装```yum install reptyr```,发现安装的0.5版本，实际上0.9版本都已经出来了，添加res都不管用，直接下载rpm文件，使用rpm安装
+```sh
+wget https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/r/reptyr-0.7.0-1.el8.x86_64.rpm
+rpm -i reptyr-0.7.0-1.el8.x86_64.rpm
+reptyr -v  #0.7.0
+```
+使用案例，我有一个rsync进程在传输文件，我想关电脑走人了，但是我不想kill再一次传输，所以我想找个screen把它挂起来。
 首先ctrl+z将任务，他会返回一个pid，是rsync的pid，使用```screen -S rsync```新建一个screen，再用reptyr 20296将session接过来。
 
 
