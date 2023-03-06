@@ -19,6 +19,7 @@ full() {echo `pwd`"/$1"} #输出文件的绝对路径
 server(){/sbin/ifconfig  | grep 10.20 | sed 's/netmask.*//g;s/inet//g' | sed -e 's/[[:space:]]*$//' | sed -e 's/^[[:space:]]*//'} #查看服务器IP
 sdms(){curl https://sctapi.ftqq.com/SCT177539TQu99ZcZ74QSVReEXeJHEDxry.send\?title\=GPUserver\&desp\=$1} #给收集客户端发送一个信息
 ```
+这些函数写在~/.bashrc或者~/.zshrc中。
 
 ## 传文件
 - cp
