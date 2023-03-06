@@ -11,6 +11,15 @@
 - [git](./git.md)
 - [并行](./并行.md)
 
+## 自定义一些命令行函数
+```sh
+cs() {cd "${1}";ls;}  #cd & ls
+cl() {printf "\033c"} #清空屏幕
+full() {echo `pwd`"/$1"} #输出文件的绝对路径
+server(){/sbin/ifconfig  | grep 10.20 | sed 's/netmask.*//g;s/inet//g' | sed -e 's/[[:space:]]*$//' | sed -e 's/^[[:space:]]*//'} #查看服务器IP
+sdms(){curl https://sctapi.ftqq.com/SCT177539TQu99ZcZ74QSVReEXeJHEDxry.send\?title\=GPUserver\&desp\=$1} #给收集客户端发送一个信息
+```
+
 ## 传文件
 - cp
 - scp 
@@ -21,12 +30,11 @@
 -v: 打印详情
 -u: 只进行更新，防止本地新文件被重写，注意两者机器的时钟的同时
 -P: 等同于两个参数 --partial --progress
---partial: 保留那些因故没有完全传输的文件,以是加快随后的再次传输(即断点续传)
---progress: 在传输过程中显示进度
+  --partial: 保留那些因故没有完全传输的文件,以是加快随后的再次传输(即断点续传)
+  --progress: 在传输过程中显示进度
 -r: 对子目录以递归模式处理
 -z: 在传输过程中进行压缩
 -t, --times: 保留修改时间
---progress 展示进度条
 ```
 示例：
 ```
@@ -55,3 +63,28 @@ sort a.txt b.txt b.txt | uniq -u #差 将两个文件排序，最后输出a.txt 
 ## 挂载文件
 windows 挂载nfs文件系统```mount xx.xx.xx.xx:/path  B:```,这个命令只能在cmd中运行，powershell和cygwin中用不了，希望后面可以用。
 
+linux挂载smb```sudo mount -t cifs //xx.xxx.xxx.xx/path /mnt/cifs52disk -o username=jon,password=password,acl,dir_mode=0777,file_mode=077```
+
+linux挂载nfs```mount -t nfs xx.xx.xx.xx:/path /path```
+
+开机自动挂载
+```sh
+xx.xx.xxx.xx:/path     path                   nfs     defaults        0 0   #挂载nfs
+//xxx.xxx.xx.xx/path     /mnt/cifs52disk                    cifs     defaults,username=xxxx,password="xxxxxx"        0 0 #挂载smb
+```
+
+## 内网翻墙
+在windows客户端，点击参数设置-->v2ray设置-->允许来自局域网的连接
+![image.png](https://upload-images.jianshu.io/upload_images/13330053-a7b8e5a2d7cb2f98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+再查看内网中的windows的IP地址，用ipconfig查看
+在linux客户端输入
+```sh
+export http_proxy="socks5://10.20.213.56:10808"
+export https_proxy="socks5://10.20.213.56:10808"
+```
+如果不想走代理，```unset http_proxy;unset https_proxy```.
+
+
+注：成功与否用```curl https://www.google.com/```,不要使用ping和wget，ping走的是icmp协议，wget不支持sock协议的代理。
