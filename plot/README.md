@@ -92,7 +92,7 @@ height_ratios，width_ratios可以定义行的高度和列的宽度。
       i=0
       for p in ax.patches:
           h=p.get_height()
-          if (h>0):
+          if (h>=0): #如果值等于0，也要画出来
               value=show[i]
               ax.text(p.get_x()+p.get_width()/2,h+H, value, ha='center',fontsize=10)
               i=i+1
