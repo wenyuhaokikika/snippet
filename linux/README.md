@@ -126,7 +126,7 @@ systemctl mask firewalld
 #如果打开之后服务依然不能访问，大概率是缓存问题，清除缓存。
 ```
 
-## 进程的持续和挂起】
+## 进程的持续和挂起
 [reptyr](https://github.com/nelhage/reptyr)有解释到进程的一些用法
 ```sh
 * Start a long running process, e.g. `top`
