@@ -80,6 +80,38 @@ export https_proxy="socks5://10.20.213.56:10808"
 
 注：成功与否用```curl https://www.google.com/```,不要使用ping和wget，ping走的是icmp协议，wget不支持sock协议的代理。
 
+那一般要用wget下载的文件怎么办呢？
+方法1：使用curl代替wget```curl https://copr.fedorainfracloud.org/coprs/neteler/tsocks/repo/epel-7/neteler-tsocks-epel-7.repo -o /etc/yum.repos.d/tsocks-epel-7.repo```
+
+方法2：使用proxychains做代理
+install
+```
+curl https://github.com/rofl0r/proxychains-ng/releases/download/v4.16/proxychains-ng-4.16.tar.xz | tar -xj
+mkdir /data/wenyuhao/software/proxychains
+./configure --prefix=/data/wenyuhao/software/proxychains --sysconfdir=/etc
+make install
+sudo make install-config
+cp /etc/proxychains.conf /data/wenyuhao/software/proxychains
+alias proxychains='/data/wenyuhao/software/proxychains/bin/proxychains4 -f /data/wenyuhao/software/proxychains/proxychains.conf'
+proxychains curl https://www.google.com/  #测试成功
+```
+
+方法3：使用tsocks，做代理（碰到了问题解决不了，先不用）
+```sh
+su root
+yum update
+curl https://copr.fedorainfracloud.org/coprs/neteler/tsocks/repo/epel-7/neteler-tsocks-epel-7.repo -o /etc/yum.repos.d/tsocks-epel-7.repo
+yum install tsocks
+```
+安装好了之后需要配置```touch /etc/tsocks.conf```,
+```
+server = 10.20.212.203
+server_port = 10808
+server_type = 5
+local=0.0.0.0/255.255.255.255
+```
+
+
 ## 进程守护
 - nohup:一般nohup直接挂上去1,```nohup command &```,2,```nohup command > /dev/null &```不输出，3,```nohup command > output 2>&1 & ```输出到output文件.
 - supervisor
