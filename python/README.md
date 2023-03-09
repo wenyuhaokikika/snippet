@@ -68,3 +68,11 @@ conda env update --prefix ./env --file environment.yml  --prune # update
 conda create --name myclone --clone myenv  #clone env 克隆一份本地的环境
 
 ```
+
+## jupyter
+安装kernel
+```sh
+python -m ipykernel install --name graphistry --display-name "graphistry" --user
+pip3 install ipykernel
+
+```
