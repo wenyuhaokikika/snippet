@@ -11,6 +11,9 @@
 ## biopython
 写入写出fasta文件
 ```python
+from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+
 #读取文件
 h = [seq_record for seq_record in SeqIO.parse("/data/wenyuhao/55/uniprot/uniprot_sprot.fasta", "fasta")]
 #读取压缩文件
