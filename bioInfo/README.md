@@ -13,7 +13,7 @@
 ```python
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
-from Bio import Seq
+from Bio.Seq import Seq
 
 #读取文件
 h = [seq_record for seq_record in SeqIO.parse("/data/wenyuhao/55/uniprot/uniprot_sprot.fasta", "fasta")]
