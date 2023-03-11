@@ -67,6 +67,8 @@ conda create --prefix ./envs jupyterlab=3.2 matplotlib=3.5 numpy=1.21 #在本地
 conda env update --prefix ./env --file environment.yml  --prune # update
 conda create --name myclone --clone myenv  #clone env 克隆一份本地的环境
 
+#导出环境
+conda env export --name machine-learning-env --file environment.yml
 ```
 
 ## jupyter
