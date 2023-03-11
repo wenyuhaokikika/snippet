@@ -54,9 +54,42 @@ codingseq <- procodingseq[procodingseq[, 'tx_id'] %in% txlist, ]
 mtab <- aaVariation (postable_snv, codingseq)
 OutputVarprocodingseq(mtab, codingseq, ids, lablersid=TRUE)
 ```
-在代码中可以看出来，主要包含四个数据框来注释：
+在代码中可以看出来，主要包含四个数据框Exon,dbsnpinCoding,procodingseq,ids来注释。
 
+这四个数据框可以根据customProDB提供的函数```1,PrepareAnnotationEnsembl 2,PrepareAnnotationRefseq```,从名字看出来，一个是以ensembl为开始的ens编号，另一种是以NM/R开头的ncbi编号，我们使用ensembl提供的编号。
+```R
+library(customProDB)
+ensembl <- useMart("ENSEMBL_MART_ENSEMBL", dataset="hsapiens_gene_ensembl",host="https://sep2019.archive.ensembl.org", path="/biomart/martservice",archive=FALSE)
+annotation_path ='annoPath'
+PrepareAnnotationEnsembl(mart=ensembl, annotation_path=annotation_path,splice_matrix=FALSE, dbsnp=NULL,COSMIC=FALSE)
+```
+在文件夹annoPath下面会产生下面的文件,一般会网络超时错误，多下几次就好了。
 
+```
+$ ls annoPath 
+exon_anno.RData  ids.RData  procodingseq.RData  proteinseq.RData  txdb.sqlite
+```
+加载vcf进行运算
+```
+library(customProDB)
+vcf <- InputVcf('/data/wenyuhao/tmp/runWGS/tmp/dna-seq-gatk-variant-calling/results/annotated/all.vcf.gz')
+length(vcf)
+vcf = vcf[[1]]
+
+load(file = "annoPath/exon_anno.RData")
+load(file = "annoPath/ids.RData")
+load(file = "annoPath/procodingseq.RData")
+load(file = "annoPath/proteinseq.RData")
+
+dbsnpinCodingGr = makeGRangesFromDataFrame(dbsnpinCoding)
+postable <- Positionincoding(vcf, exon, dbsnpinCoding)
+txlist <- unique(postable[, 'txid'])
+codingseq <- procodingseq[procodingseq[, 'tx_id'] %in% txlist, ]
+mtab <- aaVariation (postable, codingseq)
+ouput = OutputVarprocodingseq(mtab, codingseq, ids, lablersid=TRUE)
+write.table(a,'output',quote=F,col.name=T,row.names=F,sep='\t')
+
+```
 1，Exon
 
 
