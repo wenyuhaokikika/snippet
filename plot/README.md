@@ -103,3 +103,36 @@ height_ratios，width_ratios可以定义行的高度和列的宽度。
   plt.title('')
   plt.show()
   ```
+# 设置颜色
+```python
+import random
+import colorsys
+import matplotlib.pyplot as plt
+
+def get_cmap(n, name='hsv'):
+    '''Returns a function that maps each index in 0, 1, ..., n-1 to a distinct 
+    RGB color; the keyword argument name must be a standard mpl colormap name.'''
+    return plt.cm.get_cmap(name, n)
+def random_color(hue, saturation, value):
+    """
+    Generates a random color based on the given hue, saturation, and value
+    """
+    hue = hue / 360.0
+    r, g, b = colorsys.hsv_to_rgb(hue, saturation, value)
+    r = int(r * 255)
+    g = int(g * 255)
+    b = int(b * 255)
+    return (r, g, b)
+def getCol(n):
+    color_list = []
+    num_colors = n
+    hue_values = [random.randint(0, 360) for _ in range(num_colors)]
+
+    for hue in hue_values:
+        saturation = random.uniform(0.5, 1)
+        value = random.uniform(0.5, 1)
+        color_list.append(random_color(hue, saturation, value))
+    return color_list
+def rgb_to_hex(r, g, b):
+    return "#"+('{:02X}' * 3).format(r, g, b)
+```
