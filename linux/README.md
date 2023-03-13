@@ -207,6 +207,11 @@ sort a.txt b.txt | uniq -d #交 将a.txt b.txt文件进行排序，uniq使得两
 sort a.txt b.txt | uniq #并 将a.txt b.txt文件进行排序，uniq使得两个文件中的内容为唯一的，即可得到两个文件的并集
 sort a.txt b.txt b.txt | uniq -u #差 将两个文件排序，最后输出a.txt b.txt b.txt文件中只出现过一次的内容，因为有两个b.txt所以只会输出只在a.txt出现过一次的内容，即是a.txt-b.txt差集
 
+
+find . -type f | grep 'pairs' \
+|  xargs wc -l | awk -v FS="\t" '{if($1<500) print $0}' \
+| sort -n -r -k 1 | awk '{print $2}' | cut -d '/' -f 2 \
+| xargs -I {} -P 20 #找到小于500行的文件运行
 ```
 
 
