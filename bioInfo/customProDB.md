@@ -18,6 +18,8 @@ aaVariation：变体可以分为SNV和INDEL。通过将 positionincoding() 的�
 
 Outputproseq:输出 FASTA 格式文件包含表达水平高于cutoff值的蛋白质 output FASTA format file contains proteins that have expression level above the cutoff
 
+Outputaberrant:输出FASTA  protein，只能用于indel。 Short insertion/deletion may lead to aberrant proteins in cells. We provide a function to generate FASTA file containing this kind of protein.
+
 OutputsharedPro：输出多个样本中高表达蛋白的序列， Output the sequences of proteins with high expressions in multiple samples
 
 OutputVarprocodingseq：输入rpkm矩阵，输出在所有样本中共表达的蛋白序列文件 this function takes RPKM matrix as input, users can set two paramteters,cutoff and shared, to gen-erated a consensus expressed database。
@@ -31,6 +33,21 @@ Positionincoding：对于那些标有“编码”的变异，positionincoding() 
 ```
 
 ## 使用vcf和参考基因组获得突变后的蛋白序列
+customProDB有两个主要的函数处理
+  1,OutputVarprocodingseq:如果你的突变是snp突变，使用OutputVarprocodingseq。
+  2，如果你的突变是
+
+总之呢，本来我只想拿到一个个体突变之后的蛋白，但是现在我要做两步并把他们最终的结果merge在一起，这就很烦。他的https://github.com/chambm/customProDB 上面关闭了issues，Bug Reports还是404，简直了，但是我目前除了customProDB，并没有找到类似功能的packages。
+
+除了customProDB还有两种方法：
+  ```
+  1，vcftools：vcftools有子命令vcf-consensus，它可以使用参考基因组和突变数据vcf文件，得到突变后的基因组文件使用R packagesBiostrings:translate()将对应的cds区域的dna序列转化为蛋白序列。
+
+  2，gatk 提供了从突变到序列的工具
+  Gatk提供了子命令FastaAlternateReferenceMaker，功能和vcf-consensus，区别是vcftools文档中说vcf-consensus只能处理snp和较短的indel。
+  得到突变后的基因组文
+  ```
+
 
 主要使用函数OutputVarprocodingseq
 文档中给出的示例
@@ -72,10 +89,14 @@ exon_anno.RData  ids.RData  procodingseq.RData  proteinseq.RData  txdb.sqlite
 加载vcf进行运算
 ```
 library(customProDB)
-vcf <- InputVcf('/data/wenyuhao/tmp/runWGS/tmp/dna-seq-gatk-variant-calling/results/annotated/all.vcf.gz')
+vcfFile = '/data/wenyuhao/55/gencodegenes/GRCh38p13R41V98/all.vcf.gz'
+vcf <- InputVcf(vcfFile)
 length(vcf)
 vcf = vcf[[1]]
+```
 
+
+```
 load(file = "annoPath/exon_anno.RData")
 load(file = "annoPath/ids.RData")
 load(file = "annoPath/procodingseq.RData")
