@@ -6,7 +6,8 @@
  * @LastEditors: wenyuhao
  * @LastEditTime: 2023-02-12 22:02:38
 -->
-# python
+
+# IO
 
 ## 读取文件
 
@@ -28,6 +29,21 @@ with gzip.open('/data/wenyuhao/55/CCLE/paper/pubmed21n0001.xml.gz','r') as f:
     gg=xmltodict.parse(f.read())
 ```
 
+## 生物学数据写入写出
+1，序列文件写入写出
+```python
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
+[(seq_record.id,seq_record) for seq_record in SeqIO.parse("test.fasta", "fasta")]
+SeqIO.write([SeqRecord(Seq(r['sequence']),id=r['UniqueIdentifier'],description=r['ProteinName'],name=r['EntryName']) for i,r in oncoP.iterrows()]
+            , "/data/wenyuhao/55/data/PPI/IR/oncoppi/proteins.fa", "fasta")
+```
+2，结构文件写入写出
+```python
+biopandas
+```
+
 ## tqdm
 两层tqdm展示进度
 ```python
@@ -38,6 +54,8 @@ with tqdm(neg.iterrows(), desc='Outter',position=0) as outter_range:
         for i1,r1 in tqdm(pos.iterrows(), desc='Inner',position=1,leave=leave):
             time.sleep(.3)
 ```
+
+# 面向对象
 ## 鸭子类型和猴子补丁
 鸭子类型是一种动态类型的概念，指当一个对象具有特定的方法和属性时，我们可以视其为该类型的对象，而无需考虑其真实的类型。这类似于鸭子测试，即如果它走起来像鸭子、叫起来像鸭子，那么它就是鸭子。
 
@@ -97,15 +115,32 @@ def echo():
 ```
 思考：这只是一个简单的上下文，但是其他上下文都有非常多的用法，如with open () as f,torch.no_grad还可以作为装饰器使用，这都是怎么实现的呢？
 
-## biopython
-写入写出
+## dataclasses 
+
+ref:https://docs.python.org/3/library/dataclasses.html
+
+无论是java还是python在写构造函数时，都会大量的书写```self.x = x```，这样写很冗余。
+
+dataclasses 是 Python 3.7 引入的一个新模块，提供了一种简单且方便的方法来定义类。通过简化类的定义，dataclasses 使 Python 对于数据的处理更加高效和可读性更好。
+
+使用 dataclasses 可以轻松地将数据集成到您的 Python 代码中。它们提供了一种装饰器，您可以在类定义前使用该装饰器，以将数据类转换为一个使用简单语法定义的常规 Python 类。
+
+具体来说，使用 dataclasses 可以做到以下几点：
+
+    自动实现特殊方法，如 __init__()、__repr__()、__eq__() 等；
+    自动检测变量类型，并根据类型提供默认值；
+    自动为变量生成 getter 和 setter 方法；
+    具有易于阅读和编写的简洁语法。
+
+例子：
 ```python
-from Bio import SeqIO
-from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
-[(seq_record.id,seq_record) for seq_record in SeqIO.parse("test.fasta", "fasta")]
-SeqIO.write([SeqRecord(Seq(r['sequence']),id=r['UniqueIdentifier'],description=r['ProteinName'],name=r['EntryName']) for i,r in oncoP.iterrows()]
-            , "/data/wenyuhao/55/data/PPI/IR/oncoppi/proteins.fa", "fasta")
+from dataclasses import dataclass
+@dataclass
+class Person:
+    name: str
+    age: int
+    address: str = ""
+p = Person("Alice", 30, "123 Main St.")
 ```
 
 # Anaconda
